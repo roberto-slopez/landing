@@ -15,6 +15,9 @@ const profileCardStyle = {
         width: '100%',
         padding: '0px'
     },
+    icon: {
+        margin: '2px'
+    },
     cardAvatar: {
         maxWidth: '130px',
         maxHeight: '130px',
@@ -50,6 +53,10 @@ const profileCardStyle = {
         ...defaultFont,
         padding: '15px 20px',
         margin: '0 0 10px'
+    },
+    media: {
+        height: 200,
+        width: '100%'
     },
     cardActions: {
         height: 'auto',

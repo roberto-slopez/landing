@@ -1,7 +1,7 @@
 import React from 'react';
-import { withStyles, Card, CardHeader, CardContent, CardActions, Typography } from 'material-ui';
+import { withStyles, Card, CardMedia, CardHeader, CardContent, CardActions, Typography } from 'material-ui';
 import PropTypes from 'prop-types';
-
+import LocationOn from '@material-ui/icons/LocationOn';
 import profileCardStyle from './../variables/styles/profileCardStyle.jsx';
 
 function ProfileCard({ ...props }) {
@@ -23,7 +23,7 @@ function ProfileCard({ ...props }) {
                 ) : null}
                 {title !== undefined ? (
                     <Typography component="h4" className={classes.cardTitle}>
-                        {title}
+                        {title} from <LocationOn className={classes.icon} /> Guatemala
                     </Typography>
                 ) : null}
                 {description !== undefined ? (
