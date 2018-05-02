@@ -116,7 +116,7 @@ function Home({ ...props }) {
             </ItemGrid>
             <ItemGrid lg={6} xl={6} md={12}>
                 <br />
-                <SkillCard title="Windows Server" description="2016/2012" progressValue="85" />
+                <SkillCard title="Windows Server" description="2012/2016" progressValue="85" />
             </ItemGrid>
             <ItemGrid lg={6} xl={6} md={12}>
                 <br />
