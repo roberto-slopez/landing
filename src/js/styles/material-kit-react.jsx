@@ -28,8 +28,8 @@ const conatinerFluid = {
     paddingRight: '15px',
     paddingLeft: '15px',
     marginRight: 'auto',
-    marginLeft: 'auto',
-    width: '100%'
+    marginLeft: 'auto'
+    // width: '100%'
 };
 const container = {
     ...conatinerFluid,

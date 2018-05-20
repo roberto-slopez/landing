@@ -55,7 +55,7 @@ class ProfilePage extends React.Component {
                                             <img src={avatar} alt="..." className={imageClasses} />
                                         </div>
                                         <div className={classes.name}>
-                                            <Typography variant="display1" gutterBottom>
+                                            <Typography variant="title" gutterBottom>
                                                 Eldin Roberto Sánchez López
                                             </Typography>
                                             <Typography variant="subheading" gutterBottom>
