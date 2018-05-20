@@ -1,43 +1,45 @@
 {
-  "name": "landing",
-  "version": "1.0.0",
-  "description": "Portafolio",
-  "main": "index.html",
-  "dependencies": {
-    "@material-ui/icons": "^1.0.0-beta.42",
-    "material-ui": "^1.0.0-beta.41",
-    "react": "16.3.1",
-    "react-dom": "16.3.1"
-  },
-  "devDependencies": {
-    "babel-core": "6.26.0",
-    "babel-loader": "7.1.4",
-    "babel-plugin-transform-es2015-modules-commonjs": "6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "file-loader": "^1.1.11",
-    "json-loader": "0.5.7",
-    "svg-inline-loader": "^0.8.0",
-    "uglifyjs-webpack-plugin": "1.2.4",
-    "url-loader": "^1.0.1",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14"
-  },
-  "scripts": {
-    "build": "webpack --config webpack.config.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/roberto-slopez/landing.git"
-  },
-  "keywords": [
-    "home"
-  ],
-  "author": "roberto_slopez",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/roberto-slopez/landing/issues"
-  },
-  "homepage": "https://github.com/roberto-slopez/landing#readme"
+    "name": "landing",
+    "version": "1.0.0",
+    "description": "Portafolio",
+    "main": "index.html",
+    "dependencies": {
+        "@material-ui/core": "^1.0.0",
+        "@material-ui/icons": "^1.0.0",
+        "react": "^16.3.2",
+        "react-dom": "^16.3.2",
+        "react-router-dom": "^4.2.2",
+        "react-swipeable-views": "^0.12.13"
+    },
+    "devDependencies": {
+        "babel-core": "6.26.0",
+        "babel-loader": "7.1.4",
+        "babel-plugin-transform-es2015-modules-commonjs": "6.26.0",
+        "babel-preset-env": "^1.6.1",
+        "babel-preset-react": "6.24.1",
+        "babel-preset-stage-0": "^6.24.1",
+        "file-loader": "^1.1.11",
+        "json-loader": "0.5.7",
+        "svg-inline-loader": "^0.8.0",
+        "uglifyjs-webpack-plugin": "1.2.4",
+        "url-loader": "^1.0.1",
+        "webpack": "^4.5.0",
+        "webpack-cli": "^2.0.14"
+    },
+    "scripts": {
+        "build": "webpack --config webpack.config.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/roberto-slopez/landing.git"
+    },
+    "keywords": [
+        "home"
+    ],
+    "author": "roberto_slopez",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/roberto-slopez/landing/issues"
+    },
+    "homepage": "https://github.com/roberto-slopez/landing#readme"
 }

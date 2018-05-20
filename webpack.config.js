@@ -4,7 +4,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-    mode: 'development', // "production" | "development" | "none"
+    mode: 'production', // "production" | "development" | "none"
     entry: path.resolve(__dirname, 'src/js/index.jsx'),
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -60,7 +60,7 @@ module.exports = {
         new UglifyJsPlugin({
             test: /\.js($|\?)/i,
             uglifyOptions: {
-                //ecma: 5,
+                ecma: 5,
                 ie8: true,
                 safari10: true
             }

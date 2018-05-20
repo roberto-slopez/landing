@@ -1,7 +1,6 @@
 /* jshint esversion: 6 */
 import React from 'react';
-import {render} from 'react-dom';
-import { Grid } from "material-ui";
-import Home from './components/Home.jsx';
+import { render } from 'react-dom';
+import ProfilePage from './components/ProfilePage.jsx';
 
-render(<Home />, document.getElementById('app'));
+render(<ProfilePage />, document.getElementById('app'));
