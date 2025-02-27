@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+
+body {
+    margin: 0px;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-weight: normal;
+    padding: 1rem;
+}
