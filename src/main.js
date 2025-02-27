@@ -2,6 +2,7 @@ import 'primeicons/primeicons.css';
 import './style.css';
 
 import Aura from '@primeuix/themes/aura';
+import AnimateOnScroll from 'primevue/animateonscroll';
 import PrimeVue from 'primevue/config';
 import ConfirmationService from 'primevue/confirmationservice';
 import DialogService from 'primevue/dialogservice';
@@ -28,6 +29,7 @@ app.use(PrimeVue, {
     }
 });
 
+app.directive('animateonscroll', AnimateOnScroll);
 app.use(AppState);
 app.use(ConfirmationService);
 app.use(ToastService);
