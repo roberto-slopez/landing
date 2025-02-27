@@ -90,10 +90,10 @@ const programing = ref([
             <div class="h-[10rem]"></div>
             <div class="text-surface-900 dark:text-surface-0 font-bold text-4xl lg:text-5xl text-center leading-tight">DevOps</div>
             <br/>
-            <div class="flex flex-wrap justify-center gap-8">
+            <div class="flex flex-wrap justify-center gap-4">
                 <template v-for="val of devops" :key="i">
                     <div v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 slide-in-from-t-20 animate-duration-1000' }" class="flex flex-col">
-                        <Card style="width: 25rem; overflow: hidden">
+                        <Card style="width: 25rem; overflow: hidden; background-color: var(--p-primary-color)" class="shadow">
                             <template #title>{{val.label}}</template>
                             <template #content>
                                 <p class="m-0">
@@ -110,7 +110,7 @@ const programing = ref([
             <div class="flex flex-wrap justify-center gap-8">
                 <template v-for="val of programing" :key="i">
                     <div v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 slide-in-from-t-20 animate-duration-1000' }" class="flex flex-col">
-                        <Card style="width: 25rem; overflow: hidden">
+                        <Card style="width: 25rem; overflow: hidden; background-color: var(--p-primary-color)" class="shadow bg-primary">
                             <template #title>{{val.label}}</template>
                             <template #content>
                                 <p class="m-0">
@@ -127,7 +127,7 @@ const programing = ref([
             <div class="flex flex-wrap justify-center gap-8">
                 <template v-for="val of softskils" :key="i">
                     <div v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 slide-in-from-t-20 animate-duration-1000' }" class="flex flex-col">
-                        <Card style="width: 25rem; overflow: hidden">
+                        <Card style="width: 25rem; overflow: hidden; background-color: var(--p-primary-color)" class="shadow">
                             <template #title>{{val.label}}</template>
                             <template #content>
                                 <p class="m-0">
@@ -144,7 +144,7 @@ const programing = ref([
             <div class="flex flex-wrap justify-center gap-8">
                 <template v-for="val of otherskills" :key="i">
                     <div v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 slide-in-from-t-20 animate-duration-1000' }" class="flex flex-col">
-                        <Card style="width: 25rem; overflow: hidden">
+                        <Card style="width: 25rem; overflow: hidden; background-color: var(--p-primary-color)" class="shadow">
                             <template #title>{{val.label}}</template>
                             <template #content>
                                 <p class="m-0">
