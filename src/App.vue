@@ -19,9 +19,10 @@ let items = ref([{
                 <div class="text-surface-700 dark:text-surface-100 text-xl leading-normal">Experienced in Symfony6, ESNext (JavaScript & TypeScript), React, Vue, Node.js, .NET, Python, Bash, PowerShell, and DevOps. </div>
                 <div class="text-surface-700 dark:text-surface-100 text-xl leading-normal">Always exploring cutting-edge technologies to build scalable and efficient software..</div>
                 <div class="card flex justify-center flex-wrap gap-4">
-                    <Button label="" icon="pi pi-twitter" rounded class="mt-4" />
-                    <Button label="" icon="pi pi-linkedin" rounded class="mt-4" />
-                    <Button label="" icon="pi pi-github" rounded class="mt-4" />
+                    <Button label="" icon="pi pi-twitter" rounded class="mt-4" as="a" href="https://x.com/Roberto_SLopez" target="_blank" rel="noopener" />
+                    <Button label="" icon="pi pi-linkedin" rounded class="mt-4" as="a" href="linkedin.com/in/roberto-slopez" target="_blank" rel="noopener"/>
+                    <Button label="" icon="pi pi-github" rounded class="mt-4" as="a" href="https://github.com/roberto-slopez" target="_blank" rel="noopener"/>
+                    
                 </div>
             </div>
         </div>
