@@ -1,7 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import dotnetImg from './assets/dotnet.svg';
-import pythonImg from './assets/python.svg';
 let items = ref([
     {
         label: '',
