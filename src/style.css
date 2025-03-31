@@ -1,11 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "tailwindcss-primeui";
 
+:root {
+  --card-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+  --skill-card-bg: rgba(5, 13, 24, 0.8);
+  --skill-card-hover: rgba(11, 24, 47, 0.9);
+  --skill-glow-shadow: 0 0 15px;
+  --skill-hover-transform: translateY(-7px);
+  --skill-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  
+  /* Colores para categorías de habilidades */
+  --skill-devops: #1E88E5;
+  --skill-programming: #D81B60;
+  --skill-soft: #43A047;
+  --skill-other: #FF9800;
+}
+
 body {
-    margin: 0px;
-    min-height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    font-weight: normal;
-    padding: 1rem;
+  margin: 0px;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-weight: normal;
+  padding: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Estilos para tarjetas de habilidades */
+.skill-card {
+  background: var(--skill-card-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: var(--skill-transition);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.skill-card:hover {
+  transform: var(--skill-hover-transform);
+  box-shadow: var(--card-shadow), var(--skill-glow-shadow);
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  transition: var(--skill-transition);
+  z-index: 1;
+}
+
+.skill-card:hover::before {
+  opacity: 1;
+}
+
+.skill-card-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  background-clip: text;
+  -webkit-background-clip: text;
+  position: relative;
+  z-index: 2;
+}
+
+.skill-card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.skill-card-years {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  margin-top: 8px;
+  backdrop-filter: blur(4px);
+}
+
+/* Tarjetas específicas por categoría */
+.skill-devops {
+  --skill-glow-shadow: 0 0 15px var(--skill-devops);
+  border-top: 3px solid var(--skill-devops);
+}
+
+.skill-devops .skill-card-title {
+  color: var(--skill-devops);
+}
+
+.skill-programming {
+  --skill-glow-shadow: 0 0 15px var(--skill-programming);
+  border-top: 3px solid var(--skill-programming);
+}
+
+.skill-programming .skill-card-title {
+  color: var(--skill-programming);
+}
+
+.skill-soft {
+  --skill-glow-shadow: 0 0 15px var(--skill-soft);
+  border-top: 3px solid var(--skill-soft);
+}
+
+.skill-soft .skill-card-title {
+  color: var(--skill-soft);
+}
+
+.skill-other {
+  --skill-glow-shadow: 0 0 15px var(--skill-other);
+  border-top: 3px solid var(--skill-other);
+}
+
+.skill-other .skill-card-title {
+  color: var(--skill-other);
+}
+
+/* Animaciones para las tarjetas */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Tarjetas retrasadas */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* Sección de habilidades */
+.skills-section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  background: linear-gradient(90deg, #12c2e9, #c471ed, #f64f59);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+}
+
+.skills-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #12c2e9, #c471ed, #f64f59);
+  border-radius: 2px;
+}
+
+/* Mejoras para la sección de perfil */
+.profile-section {
+  margin-bottom: 5rem;
+}
+
+.profile-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #FF8A00, #FF2070);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: var(--skill-transition);
+  text-align: center;
+}
+
+.profile-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Botones de redes sociales */
+.social-button {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.social-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25);
+}
+
+.social-twitter:hover {
+  background: #1DA1F2 !important;
+  color: white !important;
+}
+
+.social-linkedin:hover {
+  background: #0077B5 !important;
+  color: white !important;
+}
+
+.social-github:hover {
+  background: #333 !important;
+  color: white !important;
 }
