@@ -7,6 +7,8 @@ import PrimeVue from 'primevue/config';
 import ConfirmationService from 'primevue/confirmationservice';
 import DialogService from 'primevue/dialogservice';
 import ToastService from 'primevue/toastservice';
+import VueReCaptcha from 'vue-recaptcha-v3';
+
 import Toolbar from 'primevue/toolbar';
 import Button from 'primevue/button';
 import { createRouter, createWebHistory } from 'vue-router';
@@ -45,5 +47,11 @@ app.use(ConfirmationService);
 app.use(ToastService);
 app.use(DialogService);
 app.use(router);
+app.use(VueReCaptcha, {
+  siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY,
+  loaderOptions: {
+    autoHideBadge: true,
+  },
+})
 
 app.mount('#app');

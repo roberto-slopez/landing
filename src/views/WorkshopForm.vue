@@ -74,6 +74,10 @@
           />
         </div>
 
+        <div v-if="recaptchaError" class="text-red-500 text-sm mb-4">
+          {{ recaptchaError }}
+        </div>
+
         <Button
           type="submit"
           label="Submit"
@@ -96,10 +100,12 @@ import InputNumber from 'primevue/inputnumber'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
 import apiService from '../services/apiService'
+import { useRecaptcha } from 'vue-recaptcha-v3'
 
 const router = useRouter()
 const toast = useToast()
 const loading = ref(false)
+const recaptchaError = ref('')
 
 const workshopTypes = [
   { name: 'Windsurf Workshop', value: 'windsurf' },
@@ -169,14 +175,26 @@ const handleSubmit = async () => {
     if (!validateForm()) return;
 
     loading.value = true
-    
+    recaptchaError.value = ''
+
+    // Ejecutar reCAPTCHA
+    const recaptcha = useRecaptcha()
+    const token = await recaptcha.execute('book_workshop')
+
+    if (!token) {
+      recaptchaError.value = 'Please complete the reCAPTCHA verification'
+      loading.value = false
+      return
+    }
+
     const formData = {
       type: form.value.workshopType.value,
       teamName: form.value.teamName,
       email: form.value.email,
       date: form.value.date,
       teamSize: form.value.teamSize,
-      additionalInfo: form.value.additionalInfo
+      additionalInfo: form.value.additionalInfo,
+      recaptchaToken: token
     }
 
     await apiService.bookWorkshop(formData)
@@ -201,7 +219,7 @@ const handleSubmit = async () => {
     toast.add({
       severity: 'error',
       summary: 'Error',
-      detail: error.response?.data?.message || 'There was an error submitting your booking. Please try again.',
+      detail: error.message,
       life: 3000
     })
   } finally {

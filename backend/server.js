@@ -5,6 +5,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { check, validationResult } = require('express-validator');
 const { createLogger, format, transports } = require('winston');
+const Recaptcha = require('google-recaptcha');
 require('dotenv').config();
 
 const app = express();
@@ -57,6 +58,12 @@ const NOTION_CONFIG = {
   API_URL: 'https://api.notion.com/v1/pages'
 };
 
+// Inicializar reCAPTCHA
+const recaptcha = new Recaptcha({
+  secret: process.env.RECAPTCHA_SECRET_KEY,
+  version: 3
+});
+
 // Validaciones
 const validateWorkshop = [
   check('type').isIn(['windsurf', 'cursor']).withMessage('Invalid workshop type'),
@@ -64,7 +71,8 @@ const validateWorkshop = [
   check('email').isEmail().withMessage('Invalid email address'),
   check('date').isISO8601().withMessage('Invalid date format'),
   check('teamSize').isInt({ min: 1, max: 10 }).withMessage('Team size must be between 1 and 10'),
-  check('additionalInfo').optional().isLength({ max: 1000 }).withMessage('Additional info is too long')
+  check('additionalInfo').optional().isLength({ max: 1000 }).withMessage('Additional info is too long'),
+  check('recaptchaToken').exists().withMessage('reCAPTCHA token is required')
 ];
 
 app.post('/workshops/book', validateWorkshop, async (req, res) => {
@@ -73,6 +81,21 @@ app.post('/workshops/book', validateWorkshop, async (req, res) => {
     if (!errors.isEmpty()) {
       logger.error('Validation error:', { errors: errors.array(), body: req.body });
       return res.status(400).json({ errors: errors.array() });
+    }
+
+    // Verificar reCAPTCHA
+    const { recaptchaToken } = req.body;
+    const recaptchaResult = await recaptcha.verify(recaptchaToken, req.ip);
+
+    if (!recaptchaResult.success) {
+      logger.error('reCAPTCHA verification failed:', { score: recaptchaResult.score });
+      return res.status(400).json({ error: 'reCAPTCHA verification failed' });
+    }
+
+    // Verificar score mínimo
+    if (recaptchaResult.score < 0.5) {
+      logger.error('Low reCAPTCHA score:', { score: recaptchaResult.score });
+      return res.status(400).json({ error: 'reCAPTCHA verification failed' });
     }
 
     const { type, teamName, email, date, teamSize, additionalInfo } = req.body;

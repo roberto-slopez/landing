@@ -28,3 +28,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+backend/node_modules
+backend/.env
+backend/.env.local
+backend/.env.*.local
