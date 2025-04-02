@@ -46,7 +46,7 @@ app.use(AppState);
 app.use(ConfirmationService);
 app.use(DialogService);
 app.use(router);
-app.use(VueReCaptcha, { siteKey: window.VITE_RECAPTCHA_SITE_KEY })
+app.use(VueReCaptcha, { siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY })
 
 app.use(ToastService, {
   position: 'bottom-right',
