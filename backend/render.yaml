@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: landing-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NOTION_DATABASE_ID
+        value: $NOTION_DATABASE_ID
+      - key: NOTION_TOKEN
+        value: $NOTION_TOKEN
+      - key: FRONTEND_URL
+        value: $FRONTEND_URL
+    docker:
+      buildContext: .
+      dockerfile: Dockerfile
+    port: 3000
