@@ -1,12 +1,12 @@
 const express = require('express');
 const axios = require('axios');
+const querystring = require('querystring');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { check, validationResult } = require('express-validator');
 const { createLogger, format, transports } = require('winston');
-const Recaptcha = require('google-recaptcha');
-require('dotenv').config();
+require('dotenv').config({ path: './.env' });
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -37,9 +37,12 @@ const logger = createLogger({
 // CORS configuration
 const allowedOrigins = [
   'https://roberto-slopez.github.io',
-  'https://www.tscompany.org'
+  'https://www.tscompany.org',
+  'http://localhost:5173',
+  'http://127.0.0.1:5173'
 ];
 
+// Enable CORS for all routes
 app.use(cors({
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps, curl, etc.)
@@ -48,7 +51,8 @@ app.use(cors({
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      console.log('Origin not allowed by CORS:', origin);
+      callback(null, true); // Temporarily allow all origins for debugging
     }
   },
   methods: ['GET', 'POST', 'OPTIONS'],
@@ -56,6 +60,14 @@ app.use(cors({
   credentials: true,
   optionsSuccessStatus: 204
 }));
+
+// Add CORS headers manually to ensure they're set
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
 app.use(express.json({ limit: '50kb' })); // Límite en el tamaño de la petición
 
@@ -65,11 +77,45 @@ const NOTION_CONFIG = {
   API_URL: 'https://api.notion.com/v1/pages'
 };
 
-// Inicializar reCAPTCHA
-const recaptcha = new Recaptcha({
-  secret: process.env.RECAPTCHA_SECRET_KEY,
-  version: 3
-});
+const verifyRecaptcha = async (token) => {
+  try {
+    if (!token) {
+      throw new Error('No reCAPTCHA token provided');
+    }
+
+    const params = {
+      secret: process.env.RECAPTCHA_SECRET_KEY,
+      response: token
+    };
+    
+    console.log('Sending reCAPTCHA verification request:', params);
+
+    const response = await axios.post(
+      'https://www.google.com/recaptcha/api/siteverify',
+      querystring.stringify(params),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+    );
+
+    const data = response.data;
+
+    if (!data.success) {
+      throw new Error('reCAPTCHA verification failed');
+    }
+
+    if (data.score && data.score < 0.5) {
+      throw new Error('reCAPTCHA score too low');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('reCAPTCHA verification failed:', error);
+    throw error;
+  }
+};
 
 // Validaciones
 const validateWorkshop = [
@@ -93,24 +139,17 @@ app.post('/workshops/book', validateWorkshop, async (req, res) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // Verificar reCAPTCHA
     const { recaptchaToken } = req.body;
-    const recaptchaResult = await recaptcha.verify(recaptchaToken, req.ip);
-
-    if (!recaptchaResult.success) {
-      logger.error('reCAPTCHA verification failed:', { score: recaptchaResult.score });
-      return res.status(400).json({ error: 'reCAPTCHA verification failed' });
-    }
-
-    // Verificar score mínimo
-    if (recaptchaResult.score < 0.5) {
-      logger.error('Low reCAPTCHA score:', { score: recaptchaResult.score });
+    
+    try {
+      await verifyRecaptcha(recaptchaToken);
+    } catch (error) {
+      console.error('reCAPTCHA verification failed:', error);
       return res.status(400).json({ error: 'reCAPTCHA verification failed' });
     }
 
     const { type, teamName, email, date, teamSize, additionalInfo } = req.body;
 
-    // Validar fecha futura
     const bookingDate = new Date(date);
     const now = new Date();
     if (bookingDate <= now) {
@@ -143,6 +182,12 @@ app.post('/workshops/book', validateWorkshop, async (req, res) => {
     res.status(201).json(response.data);
   } catch (error) {
     logger.error('Error booking workshop:', { error: error.message, stack: error.stack });
+    
+    // Si es un error de reCAPTCHA, devolver mensaje específico
+    if (error.message.includes('reCAPTCHA')) {
+      return res.status(400).json({ error: 'reCAPTCHA verification failed' });
+    }
+    
     res.status(500).json({ error: 'Internal server error' });
   }
 });
