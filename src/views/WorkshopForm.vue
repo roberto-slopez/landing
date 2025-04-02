@@ -106,12 +106,15 @@ import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
 import Toast from 'primevue/toast'
 import apiService from '../services/apiService'
-import { useRecaptcha } from 'vue-recaptcha-v3'
+import { useReCaptcha } from 'vue-recaptcha-v3'
 
 const router = useRouter()
 const toast = useToast()
 const loading = ref(false)
 const recaptchaError = ref('')
+
+// Inicializar reCAPTCHA
+const { executeRecaptcha, recaptchaLoaded } = useReCaptcha()
 
 const workshopTypes = [
   { name: 'Windsurf Workshop', value: 'windsurf' },
@@ -186,9 +189,10 @@ const handleSubmit = async () => {
     loading.value = true
     recaptchaError.value = ''
 
+    // (optional) Wait until recaptcha has been loaded.
+    await recaptchaLoaded()
     // Ejecutar reCAPTCHA
-    const recaptcha = useRecaptcha()
-    const token = await recaptcha.execute('book_workshop')
+    const token = await executeRecaptcha('book_workshop')
 
     if (!token) {
       recaptchaError.value = 'reCAPTCHA verification failed. Please try again.'
