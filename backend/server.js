@@ -75,6 +75,8 @@ const validateWorkshop = [
   check('recaptchaToken').exists().withMessage('reCAPTCHA token is required')
 ];
 
+app.options('*', cors(corsOptions));
+
 app.post('/workshops/book', validateWorkshop, async (req, res) => {
   try {
     const errors = validationResult(req);
