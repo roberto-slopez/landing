@@ -2,6 +2,7 @@
 import { RouterView, useRouter } from 'vue-router';
 import Toolbar from 'primevue/toolbar';
 import Button from 'primevue/button';
+import Toast from 'primevue/toast';
 
 const router = useRouter();
 
@@ -35,6 +36,7 @@ const navigateTo = (path) => {
       </template>
     </Toolbar>
     <div class="mt-16">
+      <Toast />
       <RouterView />
     </div>
   </div>

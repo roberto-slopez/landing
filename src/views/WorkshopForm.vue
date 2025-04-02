@@ -1,9 +1,14 @@
 <template>
   <div class="container mx-auto px-4 py-8">
+    <Toast />
     <div class="max-w-2xl mx-auto">
       <h1 class="text-3xl font-bold mb-6 text-surface-700 dark:text-surface-100">Book Your Workshop</h1>
       
       <form @submit.prevent="handleSubmit" class="space-y-6">
+        <div class="text-sm text-surface-500 dark:text-surface-400 mb-4">
+          <span class="text-surface-500 dark:text-surface-400">This form is protected by reCAPTCHA v3. No action is required from you.</span>
+        </div>
+
         <div>
           <label class="block text-sm font-medium text-surface-700 dark:text-surface-100 mb-2">
             Workshop Type
@@ -99,6 +104,7 @@ import Calendar from 'primevue/calendar'
 import InputNumber from 'primevue/inputnumber'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
+import Toast from 'primevue/toast'
 import apiService from '../services/apiService'
 import { useRecaptcha } from 'vue-recaptcha-v3'
 
@@ -172,7 +178,10 @@ const validateForm = () => {
 
 const handleSubmit = async () => {
   try {
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      console.log('Form validation failed')
+      return;
+    }
 
     loading.value = true
     recaptchaError.value = ''
@@ -182,7 +191,13 @@ const handleSubmit = async () => {
     const token = await recaptcha.execute('book_workshop')
 
     if (!token) {
-      recaptchaError.value = 'Please complete the reCAPTCHA verification'
+      recaptchaError.value = 'reCAPTCHA verification failed. Please try again.'
+      toast.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'reCAPTCHA verification failed. Please try again.',
+        life: 3000
+      })
       loading.value = false
       return
     }
@@ -197,32 +212,44 @@ const handleSubmit = async () => {
       recaptchaToken: token
     }
 
-    await apiService.bookWorkshop(formData)
-    
-    toast.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Your workshop booking has been submitted successfully!',
-      life: 3000
-    })
-    
-    // Limpiar el formulario
-    form.value = {
-      workshopType: null,
-      teamName: '',
-      email: '',
-      date: null,
-      teamSize: null,
-      additionalInfo: ''
+    try {
+      await apiService.bookWorkshop(formData)
+      
+      toast.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Your workshop booking has been submitted successfully!',
+        life: 3000
+      })
+      
+      // Limpiar el formulario
+      form.value = {
+        workshopType: null,
+        teamName: '',
+        email: '',
+        date: null,
+        teamSize: null,
+        additionalInfo: ''
+      }
+    } catch (error) {
+      console.error('Error booking workshop:', error)
+      toast.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: error.message || 'There was an error submitting your booking. Please try again.',
+        life: 3000
+      })
+    } finally {
+      loading.value = false
     }
   } catch (error) {
+    console.error('Error during form submission:', error)
     toast.add({
       severity: 'error',
       summary: 'Error',
-      detail: error.message,
+      detail: 'There was an error during form submission. Please try again.',
       life: 3000
     })
-  } finally {
     loading.value = false
   }
 }

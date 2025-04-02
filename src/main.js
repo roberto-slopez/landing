@@ -44,7 +44,6 @@ app.component('Button', Button);
 app.directive('animateonscroll', AnimateOnScroll);
 app.use(AppState);
 app.use(ConfirmationService);
-app.use(ToastService);
 app.use(DialogService);
 app.use(router);
 app.use(VueReCaptcha, {
@@ -52,6 +51,11 @@ app.use(VueReCaptcha, {
   loaderOptions: {
     autoHideBadge: true,
   },
+})
+
+app.use(ToastService, {
+  position: 'bottom-right',
+  life: 3000
 })
 
 app.mount('#app');
