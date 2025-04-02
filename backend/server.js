@@ -34,21 +34,28 @@ const logger = createLogger({
   ]
 });
 
-// CORS más restrictivo
-const corsOptions = {
+// CORS configuration
+const allowedOrigins = [
+  'https://roberto-slopez.github.io',
+  'https://www.tscompany.org'
+];
+
+app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || 
-        origin === 'https://roberto-slopez.github.io' || 
-        origin === 'https://www.tscompany.org') {
+    // Allow requests with no origin (like mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-app.use(cors(corsOptions));
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 204
+}));
 
 app.use(express.json({ limit: '50kb' })); // Límite en el tamaño de la petición
 
@@ -75,7 +82,8 @@ const validateWorkshop = [
   check('recaptchaToken').exists().withMessage('reCAPTCHA token is required')
 ];
 
-app.options('*', cors(corsOptions));
+// Handle preflight requests
+app.options('*', cors());
 
 app.post('/workshops/book', validateWorkshop, async (req, res) => {
   try {
