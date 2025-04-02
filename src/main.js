@@ -37,6 +37,22 @@ app.use(PrimeVue, {
     }
 });
 
+// Configurar reCAPTCHA
+app.use(VueReCaptcha, {
+  siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY,
+  loaderOptions: {
+    useRecaptchaNet: true,
+    autoHideBadge: true,
+    timeout: 5000,
+    onerror: (error) => {
+      console.error('reCAPTCHA initialization error:', error);
+    },
+    onload: () => {
+      console.log('reCAPTCHA loaded successfully');
+    }
+  }
+});
+
 // Registrar componentes de PrimeVue globalmente
 app.component('Toolbar', Toolbar);
 app.component('Button', Button);
@@ -46,7 +62,6 @@ app.use(AppState);
 app.use(ConfirmationService);
 app.use(DialogService);
 app.use(router);
-app.use(VueReCaptcha, { siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY })
 
 app.use(ToastService, {
   position: 'bottom-right',

@@ -52,6 +52,9 @@
             v-model="form.date"
             dateFormat="mm/dd/yy"
             class="w-full"
+            :minDate="minDate"
+            :disabledDates="disabledDates"
+            placeholder="Select a future date"
           />
         </div>
 
@@ -112,6 +115,13 @@ const router = useRouter()
 const toast = useToast()
 const loading = ref(false)
 const recaptchaError = ref('')
+
+// Configuración del calendario para deshabilitar fechas pasadas
+const today = new Date()
+const tomorrow = new Date()
+tomorrow.setDate(today.getDate() + 1)
+const minDate = tomorrow
+const disabledDates = [today]
 
 // Inicializar reCAPTCHA
 const { executeRecaptcha, recaptchaLoaded } = useReCaptcha()
@@ -191,8 +201,11 @@ const handleSubmit = async () => {
 
     // (optional) Wait until recaptcha has been loaded.
     await recaptchaLoaded()
+    console.log('reCAPTCHA loaded successfully')
+    
     // Ejecutar reCAPTCHA
     const token = await executeRecaptcha('book_workshop')
+    console.log('reCAPTCHA token received:', token.substring(0, 20) + '...')
 
     if (!token) {
       recaptchaError.value = 'reCAPTCHA verification failed. Please try again.'
@@ -215,6 +228,8 @@ const handleSubmit = async () => {
       additionalInfo: form.value.additionalInfo,
       recaptchaToken: token
     }
+
+    console.log('Sending workshop booking:', formData)
 
     try {
       await apiService.bookWorkshop(formData)
@@ -251,7 +266,7 @@ const handleSubmit = async () => {
     toast.add({
       severity: 'error',
       summary: 'Error',
-      detail: 'There was an error during form submission. Please try again.',
+      detail: error.message || 'An unexpected error occurred. Please try again.',
       life: 3000
     })
     loading.value = false
