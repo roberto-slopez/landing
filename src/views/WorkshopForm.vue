@@ -65,7 +65,7 @@
           <InputNumber
             v-model="form.teamSize"
             :min="1"
-            :max="10"
+            :max="500"
             class="w-full"
           />
         </div>
