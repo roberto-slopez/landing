@@ -38,6 +38,7 @@ const logger = createLogger({
 const allowedOrigins = [
   'https://roberto-slopez.github.io',
   'https://www.tscompany.org',
+  'https://tscompany.org',
   'http://localhost:5173',
   'http://127.0.0.1:5173'
 ];
@@ -52,22 +53,15 @@ app.use(cors({
       callback(null, true);
     } else {
       console.log('Origin not allowed by CORS:', origin);
-      callback(null, true); // Temporarily allow all origins for debugging
+      // Correctly reject disallowed origins
+      callback(new Error('Not allowed by CORS')); 
     }
   },
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
-  optionsSuccessStatus: 204
+  optionsSuccessStatus: 204 // For legacy browser support
 }));
-
-// Add CORS headers manually to ensure they're set
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
 
 app.use(express.json({ limit: '50kb' })); // Límite en el tamaño de la petición
 
