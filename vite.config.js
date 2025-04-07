@@ -14,4 +14,14 @@ export default defineConfig({
             resolvers: [PrimeVueResolver()]
         })
     ],
+    // Configuración para GitHub Pages
+    base: './',
+    build: {
+        // Genera un archivo 404.html que es una copia del index.html
+        rollupOptions: {
+            input: {
+                main: './index.html',
+            }
+        }
+    }
 })

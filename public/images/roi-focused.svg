@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <style>
+    .primary-color { fill: var(--primary-color, #4f46e5); }
+    .secondary-color { fill: var(--surface-100, #f3f4f6); }
+    .accent-color { fill: var(--surface-200, #e5e7eb); }
+    .dark-color { fill: var(--primary-700, #4338ca); }
+    .grid-color { stroke: var(--surface-300, #d1d5db); }
+    @media (prefers-color-scheme: dark) {
+      .secondary-color { fill: var(--surface-700, #334155); }
+      .accent-color { fill: var(--surface-800, #1e293b); }
+      .dark-color { fill: var(--primary-500, #6366f1); }
+      .grid-color { stroke: var(--surface-600, #475569); }
+    }
+  </style>
+  <rect width="100%" height="100%" fill="none"/>
+  <circle cx="250" cy="250" r="180" class="secondary-color" opacity="0.3"/>
+  
+  <!-- Graph Background -->
+  <rect x="120" y="120" width="260" height="200" rx="8" class="accent-color"/>
+  
+  <!-- Graph Grid -->
+  <path d="M120,160 L380,160" fill="none" class="grid-color" stroke-width="1"/>
+  <path d="M120,200 L380,200" fill="none" class="grid-color" stroke-width="1"/>
+  <path d="M120,240 L380,240" fill="none" class="grid-color" stroke-width="1"/>
+  <path d="M120,280 L380,280" fill="none" class="grid-color" stroke-width="1"/>
+  <path d="M160,120 L160,320" fill="none" class="grid-color" stroke-width="1"/>
+  <path d="M200,120 L200,320" fill="none" class="grid-color" stroke-width="1"/>
+  <path d="M240,120 L240,320" fill="none" class="grid-color" stroke-width="1"/>
+  <path d="M280,120 L280,320" fill="none" class="grid-color" stroke-width="1"/>
+  <path d="M320,120 L320,320" fill="none" class="grid-color" stroke-width="1"/>
+  <path d="M360,120 L360,320" fill="none" class="grid-color" stroke-width="1"/>
+  
+  <!-- Graph Bars -->
+  <rect x="160" y="260" width="30" height="60" class="primary-color"/>
+  <rect x="220" y="220" width="30" height="100" class="primary-color"/>
+  <rect x="280" y="180" width="30" height="140" class="primary-color"/>
+  <rect x="340" y="140" width="30" height="180" class="primary-color"/>
+  
+  <!-- Coin Stack -->
+  <circle cx="180" cy="370" r="30" class="dark-color"/>
+  <circle cx="180" cy="350" r="30" class="dark-color"/>
+  <circle cx="180" cy="330" r="30" class="dark-color"/>
+  
+  <!-- Dollar Signs -->
+  <path d="M180,325 L180,375" fill="none" stroke="white" stroke-width="3"/>
+  <path d="M172,335 L188,335" fill="none" stroke="white" stroke-width="3"/>
+  <path d="M172,365 L188,365" fill="none" stroke="white" stroke-width="3"/>
+  
+  <!-- Arrow -->
+  <path d="M220,350 L310,350 L310,310" fill="none" stroke="var(--primary-700, #4338ca)" stroke-width="5"/>
+  <path d="M295,325 L310,310 L325,325" fill="none" stroke="var(--primary-700, #4338ca)" stroke-width="5"/>
+</svg>

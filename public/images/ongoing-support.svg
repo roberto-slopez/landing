@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <style>
+    .primary-color { fill: var(--primary-color, #4f46e5); }
+    .secondary-color { fill: var(--surface-100, #f3f4f6); }
+    .accent-color { fill: var(--surface-200, #e5e7eb); }
+    .dark-color { fill: var(--primary-700, #4338ca); }
+    @media (prefers-color-scheme: dark) {
+      .secondary-color { fill: var(--surface-700, #334155); }
+      .accent-color { fill: var(--surface-800, #1e293b); }
+      .dark-color { fill: var(--primary-500, #6366f1); }
+    }
+  </style>
+  <rect width="100%" height="100%" fill="none"/>
+  <circle cx="250" cy="250" r="180" class="secondary-color" opacity="0.3"/>
+  
+  <!-- Support Person -->
+  <circle cx="180" cy="180" r="45" class="dark-color"/>
+  <path d="M135,225 L225,225 L225,340 L135,340 Z" class="primary-color"/>
+  
+  <!-- Headset -->
+  <path d="M135,170 C135,170 115,180 115,210 L115,240 C115,240 115,255 130,255 L145,255 C145,255 160,255 160,240 L160,210 C160,210 160,195 145,195 L145,170 Z" class="accent-color"/>
+  <path d="M225,170 C225,170 245,180 245,210 L245,240 C245,240 245,255 230,255 L215,255 C215,255 200,255 200,240 L200,210 C200,210 200,195 215,195 L215,170 Z" class="accent-color"/>
+  <path d="M145,170 L215,170" fill="none" stroke="var(--primary-700, #4338ca)" stroke-width="8"/>
+  
+  <!-- Face -->
+  <circle cx="165" cy="170" r="8" fill="white"/>
+  <circle cx="195" cy="170" r="8" fill="white"/>
+  <path d="M165,200 C165,200 180,210 195,200" fill="none" stroke="white" stroke-width="3"/>
+  
+  <!-- Customer -->
+  <circle cx="320" cy="250" r="40" class="dark-color"/>
+  <path d="M280,290 L360,290 L360,380 L280,380 Z" class="accent-color"/>
+  
+  <!-- Speech Bubbles -->
+  <path d="M230,210 L270,240 L230,270 Z" class="primary-color"/>
+  <path d="M270,280 L230,310 L270,340 Z" fill="white" stroke="var(--primary-color, #4f46e5)" stroke-width="2"/>
+</svg>

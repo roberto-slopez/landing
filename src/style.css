@@ -146,6 +146,28 @@ body {
 .delay-4 { animation-delay: 0.4s; }
 .delay-5 { animation-delay: 0.5s; }
 
+/* Wrapper para efecto hover */
+.skill-card-wrapper {
+  transition: transform 0.3s ease-in-out;
+}
+
+.skill-card-wrapper:hover {
+  transform: scale(1.03); /* Agranda ligeramente la tarjeta */
+  /* Opcional: añadir/modificar sombra */
+  /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); */ 
+}
+
+/* Efecto hover para tarjetas usando skill-card-hover */
+.p-card.skill-card-hover {
+  transition: transform 0.3s ease-in-out !important;
+  will-change: transform;
+}
+
+.p-card.skill-card-hover:hover {
+  transform: scale(1.03) !important;
+  z-index: 1;
+}
+
 /* Sección de habilidades */
 .skills-section-title {
   font-size: 2.5rem;

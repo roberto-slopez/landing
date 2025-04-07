@@ -68,4 +68,15 @@ app.use(ToastService, {
   life: 3000
 })
 
+// Manejar redirecciones desde 404.html para GitHub Pages
+const redirectPath = sessionStorage.getItem('redirect');
+if (redirectPath) {
+  sessionStorage.removeItem('redirect');
+  router.push(redirectPath).catch(error => {
+    if (error.name !== 'NavigationDuplicated') {
+      console.error('Error de redirección:', error);
+    }
+  });
+}
+
 app.mount('#app');

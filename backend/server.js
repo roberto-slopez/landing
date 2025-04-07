@@ -122,9 +122,6 @@ const validateWorkshop = [
   check('recaptchaToken').exists().withMessage('reCAPTCHA token is required')
 ];
 
-// Handle preflight requests
-app.options('*', cors());
-
 app.post('/workshops/book', validateWorkshop, async (req, res) => {
   try {
     const errors = validationResult(req);

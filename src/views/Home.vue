@@ -147,20 +147,26 @@ const getSkillIcon = (label) => {
             <div class="flex flex-wrap justify-center gap-4">
                 <template v-for="(val, index) of devops" :key="index">
                     <div v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 slide-in-from-t-20 animate-duration-1000' }" 
-                        class="flex flex-col animate-fadeIn" 
-                        :class="'delay-' + (index % 5 + 1)">
-                        <div class="skill-card skill-devops p-4" style="width: 25rem">
-                            <div class="flex items-center gap-3 mb-3">
-                                <i :class="getSkillIcon(val.label)" class="text-2xl"></i>
-                                <div class="skill-card-title">{{val.label}}</div>
-                            </div>
-                            <div class="skill-card-content">
-                                <div class="skill-card-years">
+                        class="flex flex-col animate-fadeIn skill-card-wrapper" 
+                        :class="'delay-' + (index % 5 + 1)"
+                        style="width: 25rem"> 
+                        
+                        <Card class="h-full skill-card-hover" 
+                              :style="{ borderTop: '3px solid var(--skill-devops)' }"> 
+                            <template #title>
+                                <div class="flex items-center gap-3"> 
+                                    <i :class="getSkillIcon(val.label)" class="text-2xl"></i>
+                                    <span :style="{ color: 'var(--skill-devops)' }">{{ val.label }}</span>
+                                </div>
+                            </template>
+                            <template #content>
+                                <div class="flex items-center"> 
                                     <i class="pi pi-clock mr-2"></i>
                                     <span>{{ val.years }} years</span>
                                 </div>
-                            </div>
-                        </div>
+                            </template>
+                        </Card>
+
                     </div>
                 </template>
             </div>
@@ -171,19 +177,25 @@ const getSkillIcon = (label) => {
                 <template v-for="(val, index) of programing" :key="index">
                     <div v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 slide-in-from-t-20 animate-duration-1000' }" 
                         class="flex flex-col animate-fadeIn" 
-                        :class="'delay-' + (index % 5 + 1)">
-                        <div class="skill-card skill-programming p-4" style="width: 25rem">
-                            <div class="flex items-center gap-3 mb-3">
-                                <i :class="getSkillIcon(val.label)" class="text-2xl"></i>
-                                <div class="skill-card-title">{{val.label}}</div>
-                            </div>
-                            <div class="skill-card-content">
-                                <div class="skill-card-years">
+                        :class="'delay-' + (index % 5 + 1)"
+                        style="width: 25rem"> 
+                        
+                        <Card class="h-full skill-card-hover" 
+                              :style="{ borderTop: '3px solid var(--skill-programming)' }"> 
+                            <template #title>
+                                <div class="flex items-center gap-3"> 
+                                    <i :class="getSkillIcon(val.label)" class="text-2xl"></i>
+                                    <span :style="{ color: 'var(--skill-programming)' }">{{ val.label }}</span>
+                                </div>
+                            </template>
+                            <template #content>
+                                <div class="flex items-center"> 
                                     <i class="pi pi-clock mr-2"></i>
                                     <span>{{ val.years }} years</span>
                                 </div>
-                            </div>
-                        </div>
+                            </template>
+                        </Card>
+
                     </div>
                 </template>
             </div>
@@ -194,19 +206,25 @@ const getSkillIcon = (label) => {
                 <template v-for="(val, index) of softskils" :key="index">
                     <div v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 slide-in-from-t-20 animate-duration-1000' }" 
                         class="flex flex-col animate-fadeIn" 
-                        :class="'delay-' + (index % 5 + 1)">
-                        <div class="skill-card skill-soft p-4" style="width: 25rem">
-                            <div class="flex items-center gap-3 mb-3">
-                                <i :class="getSkillIcon(val.label)" class="text-2xl"></i>
-                                <div class="skill-card-title">{{val.label}}</div>
-                            </div>
-                            <div class="skill-card-content">
-                                <div class="skill-card-years">
+                        :class="'delay-' + (index % 5 + 1)"
+                        style="width: 25rem"> 
+                        
+                        <Card class="h-full skill-card-hover" 
+                              :style="{ borderTop: '3px solid var(--skill-soft)' }"> 
+                            <template #title>
+                                <div class="flex items-center gap-3"> 
+                                    <i :class="getSkillIcon(val.label)" class="text-2xl"></i>
+                                    <span :style="{ color: 'var(--skill-soft)' }">{{ val.label }}</span>
+                                </div>
+                            </template>
+                            <template #content>
+                                <div class="flex items-center"> 
                                     <i class="pi pi-clock mr-2"></i>
                                     <span>{{ val.years }} years</span>
                                 </div>
-                            </div>
-                        </div>
+                            </template>
+                        </Card>
+
                     </div>
                 </template>
             </div>
@@ -217,19 +235,25 @@ const getSkillIcon = (label) => {
                 <template v-for="(val, index) of otherskills" :key="index">
                     <div v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 slide-in-from-t-20 animate-duration-1000' }" 
                         class="flex flex-col animate-fadeIn" 
-                        :class="'delay-' + (index % 5 + 1)">
-                        <div class="skill-card skill-other p-4" style="width: 25rem">
-                            <div class="flex items-center gap-3 mb-3">
-                                <i :class="getSkillIcon(val.label)" class="text-2xl"></i>
-                                <div class="skill-card-title">{{val.label}}</div>
-                            </div>
-                            <div class="skill-card-content">
-                                <div class="skill-card-years">
+                        :class="'delay-' + (index % 5 + 1)"
+                        style="width: 25rem"> 
+                        
+                        <Card class="h-full skill-card-hover" 
+                              :style="{ borderTop: '3px solid var(--skill-other)' }"> 
+                            <template #title>
+                                <div class="flex items-center gap-3"> 
+                                    <i :class="getSkillIcon(val.label)" class="text-2xl"></i>
+                                    <span :style="{ color: 'var(--skill-other)' }">{{ val.label }}</span>
+                                </div>
+                            </template>
+                            <template #content>
+                                <div class="flex items-center"> 
                                     <i class="pi pi-clock mr-2"></i>
                                     <span>{{ val.years }} years</span>
                                 </div>
-                            </div>
-                        </div>
+                            </template>
+                        </Card>
+
                     </div>
                 </template>
             </div>
