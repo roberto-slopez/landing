@@ -33,16 +33,18 @@ async function verifyRecaptcha(recaptchaToken: string) {
 }
 
 // Función principal que maneja la solicitud
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, x-client-info, apikey, x-supabase, x-profile",
+};
+
 serve(async (req) => {
   // CORS: Handling OPTIONS request
   if (req.method === "OPTIONS") {
     return new Response(null, {
       status: 204,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      },
+      headers: corsHeaders,
     });
   }
 
@@ -56,14 +58,14 @@ serve(async (req) => {
     if (!type || !teamName || !email || !date || !teamSize || !recaptchaToken) {
       return new Response(
         JSON.stringify({ error: "Missing required fields" }),
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
     // Verificar el formato de la fecha (ISO 8601)
     const isValidDate = !isNaN(Date.parse(date));
     if (!isValidDate) {
-      return new Response(JSON.stringify({ error: "Invalid date format" }), { status: 400 });
+      return new Response(JSON.stringify({ error: "Invalid date format" }), { status: 400, headers: corsHeaders });
     }
 
     // Verificar la validez del token de reCAPTCHA
@@ -72,7 +74,7 @@ serve(async (req) => {
     } catch (error) {
       return new Response(
         JSON.stringify({ error: "reCAPTCHA verification failed" }),
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -110,14 +112,14 @@ serve(async (req) => {
     // Responder con éxito
     return new Response(
       JSON.stringify({ message: "Workshop booked successfully", data: notionResult }),
-      { status: 201 }
+      { status: 201, headers: corsHeaders }
     );
   } catch (error) {
     // Manejo de errores en el backend
     console.error("Error:", error && (error.message || error));
     return new Response(
       JSON.stringify({ error: error && (error.message || error), details: error && error.stack }),
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 });

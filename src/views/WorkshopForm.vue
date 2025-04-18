@@ -201,11 +201,9 @@ const handleSubmit = async () => {
 
     // (optional) Wait until recaptcha has been loaded.
     await recaptchaLoaded()
-    console.log('reCAPTCHA loaded successfully')
     
     // Ejecutar reCAPTCHA
     const token = await executeRecaptcha('book_workshop')
-    console.log('reCAPTCHA token received:', token.substring(0, 20) + '...')
 
     if (!token) {
       recaptchaError.value = 'reCAPTCHA verification failed. Please try again.'
@@ -228,8 +226,6 @@ const handleSubmit = async () => {
       additionalInfo: form.value.additionalInfo,
       recaptchaToken: token
     }
-
-    console.log('Sending workshop booking:', formData)
 
     try {
       await apiService.bookWorkshop(formData)
